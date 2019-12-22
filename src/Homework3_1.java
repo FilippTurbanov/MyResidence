@@ -30,8 +30,32 @@ public class Homework3_1 {
         int[] test4 = insertSort(numbers);
         int[] test5 = quickSort(numbers);
         int[] test6 = mergeSort(numbers);
+        System.out.println();
+        for (int a:test1) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+        for (int a:test2) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+        for (int a:test3) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+        for (int a:test4) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+        for (int a:test5) {
+            System.out.print(a + " ");
+        }
+        System.out.println();
+        for (int a:test6) {
+            System.out.print(a + " ");
+        }
     }
-    public static int[] selectSort(int[] numbers); {
+    public static int[] selectSort(int[] numbers) {
         int index = 0;
         int y = numbers.length;
         for (int i = 0; i < y; y--) {
@@ -52,7 +76,7 @@ public class Homework3_1 {
         }
         return numbers;
     }
-    public static int[] bubbleSort(int[] numbers); {
+    public static int[] bubbleSort(int[] numbers) {
         int y = numbers.length;
         int changingNumber1;
         for (int i = 0; i < y; y--) {
@@ -96,7 +120,7 @@ public class Homework3_1 {
         }
         return numbers;
     }
-    public static int[] insertSort(int[] numbers); {
+    public static int[] insertSort(int[] numbers) {
         int memory;
         for (int i = 0; i < numbers.length - 1; i++) {
             if (numbers[i] > numbers[i+1]) {
@@ -217,7 +241,7 @@ public class Homework3_1 {
         }
         return numbers;
     }
-    public static int[] mergeSort(int[] numbers); {
+    public static int[] mergeSort(int[] numbers) {
         int len;
         if ((numbers.length % 2) == 0)
             len = (numbers.length / 2) - 1;
@@ -259,7 +283,7 @@ public class Homework3_1 {
         for (int i : numbers) {
             System.out.print(i + " ");
         }
-        int[] finishNumbers = new int[amount];
+        int[] finishNumbers = new int[numbers.length];
         int index = 0;
         int controlIndex = 0;
         for (int i = 0; i <= len; i++) {
