@@ -1,4 +1,3 @@
-/*
 import java.util.Scanner;
 
 public class Homework3_1 {
@@ -56,7 +55,7 @@ public class Homework3_1 {
             System.out.print(a + " ");
         }
     }
-    public static int[] selectSort(int[] numbers); {
+    public static int[] selectSort(int[] numbers) {
         int index = 0;
         int y = numbers.length;
         for (int i = 0; i < y; y--) {
@@ -77,7 +76,7 @@ public class Homework3_1 {
         }
         return numbers;
     }
-    public static int[] bubbleSort(int[] numbers); {
+    public static int[] bubbleSort(int[] numbers) {
         int y = numbers.length;
         int changingNumber1;
         for (int i = 0; i < y; y--) {
@@ -121,7 +120,7 @@ public class Homework3_1 {
         }
         return numbers;
     }
-    public static int[] insertSort(int[] numbers); {
+    public static int[] insertSort(int[] numbers) {
         int memory;
         for (int i = 0; i < numbers.length - 1; i++) {
             if (numbers[i] > numbers[i+1]) {
@@ -242,7 +241,7 @@ public class Homework3_1 {
         }
         return numbers;
     }
-    public static int[] mergeSort(int[] numbers); {
+    public static int[] mergeSort(int[] numbers) {
         int len;
         if ((numbers.length % 2) == 0)
             len = (numbers.length / 2) - 1;
@@ -284,7 +283,7 @@ public class Homework3_1 {
         for (int i : numbers) {
             System.out.print(i + " ");
         }
-        int[] finishNumbers = new int[amount];
+        int[] finishNumbers = new int[numbers.length];
         int index = 0;
         int controlIndex = 0;
         for (int i = 0; i <= len; i++) {
@@ -311,4 +310,3 @@ public class Homework3_1 {
         return numbers;
     }
 }
-*/
