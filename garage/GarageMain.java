@@ -1,56 +1,38 @@
 package garage;
 
-import garage.cars.Mercedes;
-import garage.parts.api.IEngine;
-import garage.parts.api.IKeys;
-import garage.parts.api.ILock;
+import driver.info.DriverInfo;
+import garage.parts.DriverLicence;
+import garage.parts.Keys;
+
+import static garage.DetermineCar.car;
 
 public class GarageMain {
     public static void main(String[] args) {
-        Mercedes mers = new Mercedes();
-        ILock lock = new ILock() {
-            @Override
-            public void openLock() {
-                System.out.println("Открываю дверь.");
-            }
-        };
-        IKeys keys = new IKeys() {
-            @Override
-            public void checkKeys() {
-                System.out.println("Подбираю ключ.");
-            }
+        DriverInfo driver = new DriverInfo();
+        driver.driverInfo();
+        System.out.println();
+        Keys keys = new Keys();
+        DriverLicence licence = new DriverLicence();
+        System.out.println("Захожу в гараж. Там стоит " + car + ".");
+        switch (car) {
+            case "Audi":
+                // описание машины
+            case "BMW":
+                // описание машины
+            case "Mercedes":
+                // описание машины
+        }
+        System.out.println("Достаю ключ от машины...");
+        boolean keyCheck = keys.keyCheck();
+        if (keyCheck) {
+            keys.keyCheckSuccessful();
+            if (licence.categoryCheck())
+                licence.categoryCheckSuccess();
+            else
+                licence.categoryCheckFailed();
+        }
+        else
+            keys.keyCheckFailed();
 
-            @Override
-            public void startEngine() {
-                System.out.println("Завожу машину.");
-            }
-        };
-        IEngine engine = new IEngine() {
-            @Override
-            public void volumeInfo() {
-                System.out.println("Уровень топлива критический!");
-            }
-
-            @Override
-            public void fuelInfo() {
-
-            }
-
-            @Override
-            public void engineModelInfo() {
-
-            }
-        };
-        keys.checkKeys();
-        lock.openLock();
-        mers.open();
-        mers.driverSeat();
-        mers.close();
-        keys.startEngine();
-        mers.start();
-        mers.drive();
-        mers.fuel();
-        engine.volumeInfo();
-        mers.stop();
     }
 }

@@ -1,50 +1,22 @@
 package garage.cars;
 
-import garage.cars.api.ICar;
+import garage.cars.api.ACars;
+import garage.parts.engine.api.IEngine;
 
-public class Mercedes implements ICar {
-    @Override
-    public void drive() {
-        System.out.println("Поехали!");
+public class Mercedes extends ACars {
+    private String model;
+    private IEngine engine;
+
+    public Mercedes(String model, IEngine engine){
+        this.model = model;
+        this.engine = engine;
     }
 
-    @Override
-    public void open() {
-        System.out.println("Открываем двери...");
+    public String getModel() {
+        return model;
     }
 
-    @Override
-    public void close() {
-        System.out.println("Закрываем двери...");
-    }
-
-    @Override
-    public void start() {
-        System.out.println("Трогаемся с места...");
-    }
-
-    @Override
-    public void stop() {
-        System.out.println("Останавливаемся.");
-    }
-
-    @Override
-    public void fuel() {
-        System.out.println("Проверяем уровень топлива...");
-    }
-
-    @Override
-    public void changeWheel() {
-        System.out.println("Меняем колесо...");
-    }
-
-    @Override
-    public void driverSeat() {
-        System.out.println("Садимся на водительское сиденье...");
-    }
-
-    @Override
-    public void passengerSeat() {
-        System.out.println("ОСадимся на пассажирское сиденье...");
+    public String getBrand() {
+        return "Mercedes";
     }
 }

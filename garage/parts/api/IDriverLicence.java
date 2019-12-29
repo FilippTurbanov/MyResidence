@@ -1,13 +1,8 @@
 package garage.parts.api;
 
 public interface IDriverLicence {
-    void licenceTypeRequirements();
-}
-
-class DriverLicence implements IDriverLicence {
-
-    @Override
-    public void licenceTypeRequirements() {
-
-    }
+    char categoryRequirements();
+    boolean categoryCheck();
+    void categoryCheckFailed();
+    void categoryCheckSuccess();
 }
