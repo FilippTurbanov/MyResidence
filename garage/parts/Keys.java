@@ -8,6 +8,8 @@ import static garage.DetermineCar.car;
 public class Keys implements IKeys {
     Lock lock = new Lock();
     final String carLock = lock.getCarLock();
+    public static boolean ifDoorsOpened = false;
+
 
     @Override
     public boolean keyCheck() {
@@ -29,7 +31,10 @@ public class Keys implements IKeys {
 
     @Override
     public void openCar() {
-        System.out.println("Открываю двери машины.");
+        if (!ifDoorsOpened)
+            ifDoorsOpened = true;
+        else
+            throw new IllegalArgumentException("Дверь уже открыта.");
     }
 
     @Override
@@ -39,6 +44,9 @@ public class Keys implements IKeys {
 
     @Override
     public void closeCar() {
-        System.out.println("Закрываю двери.");
+        if (ifDoorsOpened)
+            ifDoorsOpened = false;
+        else
+            throw new IllegalArgumentException("Нельзя закрыть закрытые двери.");
     }
 }

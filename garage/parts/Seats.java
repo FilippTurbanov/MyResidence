@@ -3,6 +3,7 @@ package garage.parts;
 import garage.parts.api.ISeats;
 
 import static garage.DetermineCar.car;
+import static garage.parts.Keys.ifDoorsOpened;
 
 public class Seats implements ISeats {
 
@@ -16,7 +17,10 @@ public class Seats implements ISeats {
 
     @Override
     public void driverSeat() {
-        System.out.println("Сажусь за водительское сиденье.");
+        if (ifDoorsOpened)
+            System.out.println("Сажусь за водительское сиденье.");
+        else
+            throw new IllegalArgumentException("Сначала открой дверь.");
     }
 
     @Override
