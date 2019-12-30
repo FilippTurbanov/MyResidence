@@ -2,11 +2,14 @@ package driver.skills;
 
 import driver.skills.api.IDriverSkills;
 
-class DriverSkills implements IDriverSkills {
+import static garage.cars.api.ACars.isDriving;
+import static garage.parts.Keys.ifDoorsOpened;
+
+public class DriverSkills implements IDriverSkills {
 
     @Override
     public void openCar() {
-        System.out.println("Открываю двери машины.");
+        System.out.println("Открываю дверь машины.");
     }
 
     @Override
@@ -16,7 +19,12 @@ class DriverSkills implements IDriverSkills {
 
     @Override
     public void driveCar() {
-        System.out.println("Поехал.");
+        if (ifDoorsOpened)
+            throw new IllegalArgumentException("Перед выездом закройте все двери.");
+        else if (isDriving)
+            throw new IllegalArgumentException("Машина уже едет.");
+        else
+            System.out.println("Поехал.");
     }
 
     @Override
