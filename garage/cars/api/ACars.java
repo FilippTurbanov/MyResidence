@@ -1,9 +1,18 @@
 package garage.cars.api;
 
+import static garage.parts.Keys.ifDoorsOpened;
+
 public abstract class ACars implements ICar {
+    public static boolean isDriving = false;
+
     @Override
     public void drive() {
-        System.out.println("Поехал.");
+        if (ifDoorsOpened)
+            throw new IllegalArgumentException("Перед выездом закройте все двери.");
+        else if (isDriving)
+            throw new IllegalArgumentException("Машина уже едет.");
+        else
+            System.out.println("Поехал.");
     }
 
     @Override
@@ -28,7 +37,7 @@ public abstract class ACars implements ICar {
 
     @Override
     public void fuel() {
-        System.out.println("Проверяю уровень топлива...");
+        System.out.println("Заправляю машину.");
     }
 
     @Override
@@ -38,7 +47,10 @@ public abstract class ACars implements ICar {
 
     @Override
     public void driverSeat() {
-        System.out.println("Сажусь за водительское сиденье.");
+        if (ifDoorsOpened)
+            System.out.println("Сажусь за водительское сиденье.");
+        else
+            throw new IllegalArgumentException("Сначала открой дверь.");
     }
 
     @Override

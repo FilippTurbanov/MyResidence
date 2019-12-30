@@ -10,4 +10,5 @@ public interface ICar {
     void changeWheel();
     void driverSeat();
     void passengerSeat();
+    void carInfo();
 }
