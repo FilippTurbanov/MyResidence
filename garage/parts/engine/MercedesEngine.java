@@ -23,6 +23,11 @@ public class MercedesEngine implements IChangeableFuelType {
     }
 
     @Override
+    public String getEngineName() {
+        return "Mercedes ОМ 651";
+    }
+
+    @Override
     public int getCapacity() {
         return capacity;
     }
@@ -56,12 +61,8 @@ public class MercedesEngine implements IChangeableFuelType {
     }
 
     @Override
-    public double running() {
-        if (running) {
-            Random rnd = new Random();
-            return ((rnd.nextDouble()) % 1 + (rnd.nextInt(9) + 2));
-        }
-        else
-            return 0;
+    public double fuelConsuming() {
+        Random rnd = new Random();
+        return ((rnd.nextDouble()) % 1 + (rnd.nextInt(9) + 2));
     }
 }
