@@ -6,8 +6,8 @@ import static driver.info.DriverInfo.*;
 import static garage.DetermineCar.car;
 
 public class Keys implements IKeys {
-    Lock lock = new Lock();
-    final String carLock = lock.getCarLock();
+    private Lock lock = new Lock();
+    private final String carLock = lock.getCarLock();
     public static boolean ifDoorsOpened = false;
 
 

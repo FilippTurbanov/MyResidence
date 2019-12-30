@@ -4,8 +4,11 @@ import driver.info.api.IDriverInfo;
 
 import java.util.Random;
 
+import static garage.DetermineCar.carsAmount;
+import static garage.DetermineCar.garage;
+
 public class DriverInfo implements IDriverInfo {
-    Random rnd = new Random();
+    private Random rnd = new Random();
 
     @Override
     public String driversName() {
@@ -28,24 +31,10 @@ public class DriverInfo implements IDriverInfo {
     private static String [] carKeys() {
         Random rnd = new Random();
         String[] typesOfKeys = new String[2];
-        if (rnd.nextInt(3) == 0) {
-            typesOfKeys[0] = "Audi";
-            if (rnd.nextInt(2) == 0)
-                typesOfKeys[1] = "BMW";
-            else typesOfKeys[1] = "Mercedes";
-        }
-        else if (rnd.nextInt(3) == 1) {
-            typesOfKeys[0] = "BMW";
-            if (rnd.nextInt(2) == 0)
-                typesOfKeys[1] = "Audi";
-            else typesOfKeys[1] = "Mercedes";
-        }
-        else {
-            typesOfKeys[0] = "Mercedes";
-            if (rnd.nextInt(2) == 0)
-                typesOfKeys[1] = "Audi";
-            else
-                typesOfKeys[1] = "BMW";
+        typesOfKeys[0] = garage[rnd.nextInt(carsAmount)];
+        typesOfKeys[1] = typesOfKeys[0];
+        while (typesOfKeys[0].equals(typesOfKeys[1])) {
+            typesOfKeys[1] = garage[rnd.nextInt(carsAmount)];
         }
         return typesOfKeys;
     }
