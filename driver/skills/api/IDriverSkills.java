@@ -7,4 +7,6 @@ public interface IDriverSkills {
     void takePassenger();
     void startCar();
     void stopCar();
+    void driverSeat();
+    void passengerSeat();
 }

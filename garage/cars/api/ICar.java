@@ -1,14 +1,15 @@
 package garage.cars.api;
 
 public interface ICar {
-    void drive();
-    void open();
-    void close();
-    void start();
-    void stop();
+    void driveCar();
+    void openCar();
+    void closeCar();
+    void startCar();
+    void stopCar();
     void fuel();
     void changeWheel();
     void driverSeat();
     void passengerSeat();
     void carInfo();
+    void takePassenger();
 }

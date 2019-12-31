@@ -1,44 +1,52 @@
 package driver.skills;
 
 import driver.skills.api.IDriverSkills;
-
-import static garage.cars.api.ACars.isDriving;
-import static garage.parts.Keys.ifDoorsOpened;
+import garage.cars.api.ACars;
 
 public class DriverSkills implements IDriverSkills {
+    ACars car = new ACars() {
+        @Override
+        public void carInfo() {
+        }
+    };
 
     @Override
     public void openCar() {
-        System.out.println("Открываю дверь машины.");
+        car.openCar();
     }
 
     @Override
     public void closeCar() {
-        System.out.println("Закрываю двери.");
+       car.closeCar();
     }
 
     @Override
     public void driveCar() {
-        if (ifDoorsOpened)
-            throw new IllegalArgumentException("Перед выездом закройте все двери.");
-        else if (isDriving)
-            throw new IllegalArgumentException("Машина уже едет.");
-        else
-            System.out.println("Поехал.");
+       car.driveCar();
     }
 
     @Override
     public void takePassenger() {
-        System.out.println("Беру пассажира.");
+       car.takePassenger();
     }
 
     @Override
     public void startCar() {
-        System.out.println("Завожу мотор.");
+        car.startCar();
     }
 
     @Override
     public void stopCar() {
-        System.out.println("Останавливаюсь.");
+        car.stopCar();
+    }
+
+    @Override
+    public void driverSeat() {
+        car.driverSeat();
+    }
+
+    @Override
+    public void passengerSeat() {
+       car.passengerSeat();
     }
 }

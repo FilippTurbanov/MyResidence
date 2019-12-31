@@ -20,7 +20,7 @@ public class DriverInfo implements IDriverInfo {
         return (rnd.nextInt(14) + 2);
     }
 
-    private static char licenceCategories() {
+    private static char licenceCategories() { // поменять
         Random rnd = new Random();
         if (rnd.nextInt(2) == 0)
             return 'B';
@@ -28,7 +28,7 @@ public class DriverInfo implements IDriverInfo {
             return 'C';
     }
 
-    private static String [] carKeys() {
+    private static String [] carKeys() { // поменять
         Random rnd = new Random();
         String[] typesOfKeys = new String[2];
         typesOfKeys[0] = garage[rnd.nextInt(carsAmount)];
@@ -39,7 +39,7 @@ public class DriverInfo implements IDriverInfo {
         return typesOfKeys;
     }
 
-    public final static char category = licenceCategories();
+    public final static char category = licenceCategories(); // поменять
     public final static String [] keys = carKeys();
 
     @Override
@@ -53,10 +53,10 @@ public class DriverInfo implements IDriverInfo {
         else {
             System.out.println(temp + " лет");
         }
-        if (category == 'B')
+        if (category == 'B') // поменять
             System.out.println("Права категории: B");
         else
             System.out.println("Права категорий: B, C");
-        System.out.println("Имеются ключи от машин: " + keys[0] + ", " + keys[1]);
+        System.out.println("Имеются ключи от машин: " + keys[0] + ", " + keys[1]); // поменять
     }
 }

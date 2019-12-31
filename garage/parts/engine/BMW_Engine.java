@@ -42,23 +42,7 @@ public class BMW_Engine implements IChangeableFuelType {
         return fuelType;
     }
 
-    @Override
-    public boolean start() {
-        if (!running)
-            running = true;
-        else
-            throw new IllegalArgumentException("Нельзя завести заведенный мотор.");
-        return true;
-    }
 
-    @Override
-    public boolean stop() {
-        if (running)
-            running = false;
-        else
-            throw new IllegalArgumentException("Нельзя остановить выключенный мотор.");
-        return false;
-    }
 
     @Override
     public double fuelConsuming() {

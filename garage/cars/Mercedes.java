@@ -9,14 +9,20 @@ import garage.parts.wheel.WheelInfo;
 public class Mercedes extends ACars {
     private String model;
     private IEngine engine;
+    private String lock;
 
-    public Mercedes(String model, IEngine engine){
+    public Mercedes(String model, String lock, IEngine engine){
         this.model = model;
         this.engine = engine;
+        this.lock = lock;
     }
 
     public String getModel() {
         return model;
+    }
+
+    public String getLock() {
+        return lock;
     }
 
     public String getBrand() {

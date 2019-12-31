@@ -37,23 +37,7 @@ public class NoNameEngine implements IEngine{
         return fuelType;
     }
 
-    public boolean start() {
-        System.out.println("Мотор заведен, но издает странные звуки.");
-        if (!running)
-            running = true;
-        else
-            throw new IllegalArgumentException("Нельзя завести заведенный мотор.");
-        return true;
-    }
 
-    public boolean stop() {
-        System.out.println("Мотор заглушен.");
-        if (running)
-            running = false;
-        else
-            throw new IllegalArgumentException("Нельзя остановить выключенный мотор.");
-        return false;
-    }
 
     public double fuelConsuming() {
         System.out.println("Увеличенный расход топлива.");

@@ -49,7 +49,7 @@ public class GarageMain {
             switch (car) {
                 case "Audi":
                     if (modelEngine) {
-                        Audi audi1 = new Audi("R8", new AudiEngine(90, FuelType.PETROL, "FF123532"));
+                        Audi audi1 = new Audi("R8", "dg438975", new AudiEngine(90, FuelType.PETROL, "FF123532"));
                         audi1.carInfo();
                         System.out.println();
                         driver.openCar();
@@ -62,7 +62,7 @@ public class GarageMain {
                         System.out.println("Уровень топлива низкий.");
                         audi1.stop();
                     } else {
-                        Audi audi2 = new Audi("R8", new NoNameEngine(90, FuelType.PETROL, "FF123532"));
+                        Audi audi2 = new Audi("R8", "dg038143", new NoNameEngine(90, FuelType.PETROL, "FF123532"));
                         audi2.carInfo();
                         System.out.println();
                         driver.openCar();

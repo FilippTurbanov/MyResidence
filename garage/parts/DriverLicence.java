@@ -8,7 +8,7 @@ import static driver.info.DriverInfo.*;
 public class DriverLicence implements IDriverLicence {
 
     @Override
-    public char categoryRequirements() {
+    public char categoryRequirements() { // менять
         if (car.equals("BMW"))
             return 'C';
         else
@@ -16,7 +16,7 @@ public class DriverLicence implements IDriverLicence {
     }
 
     @Override
-    public boolean categoryCheck() {
+    public boolean categoryCheck() { // менять
         if (category == 'C')
             return true;
         else
