@@ -1,6 +1,7 @@
 package garage.parts.api;
 
 public interface ISeats {
-    int seatsNumber();
+    int setSeats(int seatsNumber);
+    int getSeats();
     void seatsInfo();
 }

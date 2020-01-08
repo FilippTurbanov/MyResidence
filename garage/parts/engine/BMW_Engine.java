@@ -9,7 +9,6 @@ public class BMW_Engine implements IChangeableFuelType {
     private final String id;
     private final int capacity;
     private FuelType fuelType;
-    private boolean running = false;
 
     public BMW_Engine(int capacity, FuelType fuelType, String id) {
         this.capacity = capacity;

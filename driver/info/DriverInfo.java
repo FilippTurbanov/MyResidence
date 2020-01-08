@@ -1,14 +1,13 @@
 package driver.info;
 
 import driver.info.api.IDriverInfo;
+import driver.skills.DriverSkills;
 
 import java.util.Random;
 
-import static garage.DetermineCar.carsAmount;
-import static garage.DetermineCar.garage;
-
 public class DriverInfo implements IDriverInfo {
     private Random rnd = new Random();
+    DriverSkills driverSkills = new DriverSkills();
 
     @Override
     public String driversName() {
@@ -19,28 +18,6 @@ public class DriverInfo implements IDriverInfo {
     public int drivingExperience() {
         return (rnd.nextInt(14) + 2);
     }
-
-    private static char licenceCategories() { // поменять
-        Random rnd = new Random();
-        if (rnd.nextInt(2) == 0)
-            return 'B';
-        else
-            return 'C';
-    }
-
-    private static String [] carKeys() { // поменять
-        Random rnd = new Random();
-        String[] typesOfKeys = new String[2];
-        typesOfKeys[0] = garage[rnd.nextInt(carsAmount)];
-        typesOfKeys[1] = typesOfKeys[0];
-        while (typesOfKeys[0].equals(typesOfKeys[1])) {
-            typesOfKeys[1] = garage[rnd.nextInt(carsAmount)];
-        }
-        return typesOfKeys;
-    }
-
-    public final static char category = licenceCategories(); // поменять
-    public final static String [] keys = carKeys();
 
     @Override
     public void driverInfo() {
@@ -53,10 +30,6 @@ public class DriverInfo implements IDriverInfo {
         else {
             System.out.println(temp + " лет");
         }
-        if (category == 'B') // поменять
-            System.out.println("Права категории: B");
-        else
-            System.out.println("Права категорий: B, C");
-        System.out.println("Имеются ключи от машин: " + keys[0] + ", " + keys[1]); // поменять
+        System.out.println("Наличие прав категории: " + driverSkills.getCategory());
     }
 }

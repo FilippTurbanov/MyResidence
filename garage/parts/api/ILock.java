@@ -1,8 +1,7 @@
 package garage.parts.api;
 
 public interface ILock {
-    String getCarLock();
-    boolean keyCheck();
+    boolean keyCheck(String key, String lock);
     void keyCheckFailed();
     void keyCheckSuccessful();
 }

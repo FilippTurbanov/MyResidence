@@ -1,52 +1,23 @@
 package driver.skills;
 
 import driver.skills.api.IDriverSkills;
-import garage.cars.api.ACars;
+import garage.parts.DriverLicence;
+import garage.parts.Keys;
 
 public class DriverSkills implements IDriverSkills {
-    ACars car = new ACars() {
-        @Override
-        public void carInfo() {
-        }
-    };
+    Keys keys = new Keys();
+    String key = keys.getKey("SimSalabim12345");
 
     @Override
-    public void openCar() {
-        car.openCar();
+    public String getKey() {
+        return key;
     }
 
-    @Override
-    public void closeCar() {
-       car.closeCar();
-    }
+    DriverLicence driverLicence = new DriverLicence();
+    String category = driverLicence.getCategory("B");
 
     @Override
-    public void driveCar() {
-       car.driveCar();
-    }
-
-    @Override
-    public void takePassenger() {
-       car.takePassenger();
-    }
-
-    @Override
-    public void startCar() {
-        car.startCar();
-    }
-
-    @Override
-    public void stopCar() {
-        car.stopCar();
-    }
-
-    @Override
-    public void driverSeat() {
-        car.driverSeat();
-    }
-
-    @Override
-    public void passengerSeat() {
-       car.passengerSeat();
+    public String getCategory() {
+        return category;
     }
 }

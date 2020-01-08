@@ -9,7 +9,6 @@ public class NoNameEngine implements IEngine{
     private final String id;
     private final int capacity;
     private FuelType fuelType;
-    private boolean running = false;
 
     public NoNameEngine(int capacity, FuelType fuelType, String id) {
         this.capacity = capacity;
@@ -36,7 +35,6 @@ public class NoNameEngine implements IEngine{
     public FuelType getFuelType() {
         return fuelType;
     }
-
 
 
     public double fuelConsuming() {

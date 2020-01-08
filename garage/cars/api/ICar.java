@@ -2,8 +2,8 @@ package garage.cars.api;
 
 public interface ICar {
     void driveCar();
-    void openCar();
-    void closeCar();
+    void openCar(String key);
+    void closeCar(String key);
     void startCar();
     void stopCar();
     void fuel();

@@ -3,10 +3,15 @@ package garage.cars.api;
 import garage.parts.Lock;
 
 public abstract class ACars implements ICar {
-    boolean isDoorOpened = false;
-    boolean isDriving = false;
-    boolean isEngineStarted = false;
-    Lock lock = new Lock();
+    private boolean isDoorOpened = false;
+    private boolean isDriving = false;
+    private boolean isEngineStarted = false;
+    Lock checkLock = new Lock();
+    private String lock;
+
+    public String getLock() {
+        return lock;
+    }
 
     @Override
     public void driveCar() {
@@ -21,9 +26,9 @@ public abstract class ACars implements ICar {
     }
 
     @Override
-    public void openCar() {
+    public void openCar(String key) {
         System.out.println("Открываю двери машины.");
-        if (lock.keyCheck()) {
+        if (checkLock.keyCheck(key, getLock())) {
             if (!isDoorOpened)
                 isDoorOpened = true;
             else
@@ -34,9 +39,9 @@ public abstract class ACars implements ICar {
     }
 
     @Override
-    public void closeCar() {
+    public void closeCar(String key) {
         System.out.println("Закрываю двери.");
-        if (lock.keyCheck()) {
+        if (checkLock.keyCheck(key, getLock())) {
             if (isDoorOpened)
                 isDoorOpened = false;
             else
