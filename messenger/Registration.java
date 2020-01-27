@@ -4,6 +4,7 @@ import messenger.api.IRegistration;
 
 public class Registration implements IRegistration {
     Validation validation = new Validation();
+
     @Override
     public void setNewUser(String username, String password) {
         if (validation.userRegistrationCheck(username)) {

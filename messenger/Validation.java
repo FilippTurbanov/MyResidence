@@ -88,9 +88,11 @@ public class Validation implements IValidation {
 
     @Override
     public void authorization(String username, String password) {
+        Chat chat = new Chat();
         System.out.println("Введите логин и пароль:");
         if (userValidationCheck(username)) {
             if (passwordValidationCheck(username, password)) {
+                chat.addUser(username);
                 System.out.println("Добро пожаловать, " + username + "!");
             }
             else

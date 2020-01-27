@@ -1,5 +1,9 @@
 package messenger.api;
 
+import messenger.Message;
+
+import java.util.ArrayList;
+
 public interface IChatSaver {
-    void save(IChat chat);
+    void save(ArrayList<Message> log);
 }
