@@ -39,4 +39,9 @@ public class Chat implements IChat {
     public void saveChat() {
         saver.save(messageList);
     }
+
+    @Override
+    public void saveToFile() {
+        saver.saveToFile(messageList);
+    }
 }

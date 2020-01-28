@@ -33,4 +33,14 @@ public class Message<Message> implements IMessage {
     public String getSender() {
         return user;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "message=" + message +
+                ", date=" + date +
+                ", messageType=" + messageType +
+                ", user='" + user + '\'' +
+                '}';
+    }
 }

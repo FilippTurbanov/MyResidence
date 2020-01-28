@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface IChatSaver {
     void save(ArrayList<Message> log);
+    void saveToFile(ArrayList<Message> log);
 }
