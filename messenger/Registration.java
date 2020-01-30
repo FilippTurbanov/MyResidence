@@ -6,28 +6,32 @@ public class Registration implements IRegistration {
     Validation validation = new Validation();
 
     @Override
-    public void setNewUser(String username, String password) {
+    public User setNewUser(String username, String password) {
         if (validation.userRegistrationCheck(username)) {
             if (validation.passwordRegistrationCheck(password)) {
-                setId(username);
+                int id = setAndGetId(username);
                 System.out.println("Поздравляем, " + username + "! Вы успешно зарегистрировались.");
                 validation.addNewUser(username, password);
+                return new User(username, id, password);
             }
         }
-        else
-            System.out.println("Пользователь с таким именем существует!");
+        else {
+            throw new IllegalArgumentException("Пользователь с таким именем существует!");
+        }
+        return null;
     }
 
     @Override
-    public void setId(String username) {
+    public int setAndGetId(String username) {
         int id = 1;
         while (true) {
             if (validation.idCheck(id)) {
-                validation.idList.put(username, id);
+                validation.setId(username, id);
                 break;
             }
             else
                 id++;
         }
+        return id;
     }
 }

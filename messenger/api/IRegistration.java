@@ -1,6 +1,8 @@
 package messenger.api;
 
+import messenger.User;
+
 public interface IRegistration {
-    void setNewUser(String username, String password);
-    void setId(String username);
+    User setNewUser(String username, String password);
+    int setAndGetId(String username);
 }

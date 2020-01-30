@@ -1,38 +1,46 @@
 package messenger;
 
 import messenger.api.IChat;
-import messenger.data.MessageType;
+import messenger.api.IMessage;
+import messenger.data.TextMessage;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Chat implements IChat {
-    public ArrayList<User> chatList = new ArrayList<>();
-    public ArrayList<Message> messageList = new ArrayList<>();
+public class Chat implements IChat, Serializable {
+    private final ArrayList<User> chatList = new ArrayList<>();
+    private final ArrayList<IMessage> messageList = new ArrayList<>();
     ChatSaver saver = new ChatSaver();
 
     @Override
-    public void addMessage(String message, String username) {
-        Message<String> information = new Message<>(new Date(), MessageType.SYMBOL, username, message);
-        messageList.add(information);
+    public void addMessage(TextMessage message) {
+        messageList.add(message);
     }
 
-    public void addMessage(String[] message, String username) {
-        Message<String[]> information = new Message<>(new Date(), MessageType.SYMBOL, username, message);
-        messageList.add(information);
+    public void addMessage(TextMessage[] message) {
+        if(message != null){
+            for (TextMessage textMessage : message) {
+                this.addMessage(textMessage);
+            }
+        }
     }
 
-    public void addMessage(ArrayList<Message> message, String username) {
-        Message<ArrayList<Message>> information = new Message<>(new Date(), MessageType.SYMBOL, username, message);
-        messageList.add(information);
+    public void addMessage(ArrayList<TextMessage> message) {
+        if(message != null){
+            for (TextMessage textMessage : message) {
+                this.addMessage(textMessage);
+            }
+        }
     }
 
     @Override
-    public void addUser(String username) {
-        User user = new User(username);
+    public void addUser(User user) throws IllegalAccessException {
         if (!chatList.contains(user)) {
             chatList.add(user);
         }
+        else
+            throw new IllegalAccessException("Вы уже залогинены.");
     }
 
     @Override
@@ -43,5 +51,10 @@ public class Chat implements IChat {
     @Override
     public void saveToFile() {
         saver.saveToFile(messageList);
+    }
+
+    @Override
+    public void saveToBinaryFile() throws IOException {
+        saver.saveToBinaryFile(messageList);
     }
 }

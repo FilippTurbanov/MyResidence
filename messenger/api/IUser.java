@@ -1,8 +1,12 @@
 package messenger.api;
 
+import messenger.data.TextMessage;
+
 public interface IUser {
-    int getId(String username);
+    int getId();
     String getUsername();
-    void changePassword(String username, String oldPassword, String newPassword);
-    void addMessage(String message, String username);
+    String getPassword();
+    void changePassword(String oldPassword, String newPassword);
+    void addMessage(TextMessage message);
+    void authorization() throws IllegalAccessException;
 }

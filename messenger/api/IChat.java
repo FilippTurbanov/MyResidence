@@ -1,8 +1,14 @@
 package messenger.api;
 
+import messenger.User;
+import messenger.data.TextMessage;
+
+import java.io.IOException;
+
 public interface IChat {
-    void addMessage(String message, String username);
-    void addUser(String username);
+    void addMessage(TextMessage message);
+    void addUser(User user) throws IllegalAccessException;
     void saveChat();
     void saveToFile();
+    void saveToBinaryFile() throws IOException;
 }

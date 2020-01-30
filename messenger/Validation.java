@@ -8,8 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation implements IValidation {
-    public final HashMap <String, Integer > idList = new HashMap<>();
+    private final HashMap <String, Integer > idList = new HashMap<>();
     private final HashMap <String, String> userList = new HashMap<>();
+    private byte counter = 0;
 
     @Override
     public boolean userRegistrationCheck(String username) {
@@ -22,8 +23,12 @@ public class Validation implements IValidation {
     }
 
     @Override
-    public boolean idCheck(Integer id) {
+    public boolean idCheck(int id) {
         return (!idList.containsValue(id));
+    }
+
+    public void setId(String username, int id) {
+        idList.put(username, id);
     }
 
     @Override
@@ -41,26 +46,22 @@ public class Validation implements IValidation {
                     for (int i = 0; i < chars.length - 2; i++) {
                         char c = chars[i];
                         if (c == chars[i+1]) {
-                            System.out.println("Пароль не может содержать одинаковых рядом стоящих символов");
-                            return false;
+                            throw new IllegalArgumentException("Пароль не может содержать одинаковых рядом стоящих символов");
                         }
                     }
                     return true;
                 }
                 else {
-                    System.out.println("Пароль должен содержать минимум один из символов: ' : / ! ? + % ");
-                    return false;
+                    throw new IllegalArgumentException("Пароль должен содержать минимум один из символов: ' : / ! ? + % ");
                 }
             }
             else {
-                System.out.println("Пароль может содержать латинские буквы любого регистра, цифры" +
+                throw new IllegalArgumentException("Пароль может содержать латинские буквы любого регистра, цифры" +
                         "и символы: ' : / ! ? + % ");
-                return false;
             }
         }
         else {
-            System.out.println("Длина пароля должна быть не менее 7 символов");
-            return false;
+            throw new IllegalArgumentException("Длина пароля должна быть не менее 7 символов");
         }
     }
 
@@ -74,32 +75,32 @@ public class Validation implements IValidation {
         userList.put(username, password);
     }
 
-    public void changePassword(String username, String oldPassword, String newPassword) {
-        System.out.println("Введите прежний пароль:");
-        if (passwordValidationCheck(username, oldPassword)) {
-            System.out.println("Введите новый пароль:");
-            if (passwordRegistrationCheck(newPassword)) {
-                userList.put(username, newPassword);
-            }
+    public void changePassword(String username, String newPassword) {
+        if (passwordRegistrationCheck(newPassword)) {
+            userList.put(username, newPassword);
+        }
+        else if (counter < 2) {
+            counter++;
+            System.out.println("Неверный пароль. Осталось попыток: " + (3-counter) + ".");
+            changePassword(username, newPassword);
         }
         else
-            System.out.println("Неверный пароль.");
+            throw new IllegalArgumentException("Неверный пароль.");
     }
 
     @Override
-    public void authorization(String username, String password) {
+    public void authorization(User user) throws IllegalAccessException {
         Chat chat = new Chat();
-        System.out.println("Введите логин и пароль:");
-        if (userValidationCheck(username)) {
-            if (passwordValidationCheck(username, password)) {
-                chat.addUser(username);
-                System.out.println("Добро пожаловать, " + username + "!");
+        if (userValidationCheck(user.getUsername())) {
+            if (passwordValidationCheck(user.getUsername(), user.getPassword())) {
+                chat.addUser(user);
+                System.out.println("Добро пожаловать, " + user.getUsername() + "!");
             }
             else
-                System.out.println("Неверный пароль!");
+                throw new IllegalArgumentException("Неверный пароль!");
         }
         else
-            System.out.println("Пользователя с таким именем не существует!");
+            throw new IllegalArgumentException("Пользователя с таким именем не существует!");
     }
 
     @Override
