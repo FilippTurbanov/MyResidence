@@ -3,6 +3,8 @@ package messenger;
 import messenger.api.IUser;
 import messenger.data.TextMessage;
 
+import java.io.IOException;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -69,4 +71,10 @@ public class User implements IUser, Serializable {
     public int hashCode() {
         return Objects.hash(username, id, password, validation, chat);
     }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {}
+
+    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {}
+
+    private void readObjectNoData() throws ObjectStreamException {}
 }

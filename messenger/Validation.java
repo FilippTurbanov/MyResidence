@@ -103,6 +103,14 @@ public class Validation implements IValidation {
             throw new IllegalArgumentException("Пользователя с таким именем не существует!");
     }
 
+    public HashMap<String, String> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(HashMap<String, String> userList) {
+        this.userList.putAll(userList);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
