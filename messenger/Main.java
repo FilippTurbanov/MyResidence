@@ -12,7 +12,7 @@ public class Main {
     }
 
     public void userListLoad() throws IOException, ClassNotFoundException {
-        FileInputStream start = new FileInputStream("user_list.tmp)");
+        FileInputStream start = new FileInputStream("user_list.tmp");
         ObjectInputStream load = new ObjectInputStream(start);
         HashMap<String, String> userList = (HashMap<String, String>) load.readObject();
         load.close();
