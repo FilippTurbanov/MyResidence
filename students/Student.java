@@ -19,11 +19,26 @@ public class Student {
     private List<Student> lucky_students = new ArrayList<>();
     private Random rnd = new Random();
 
+    Student () {}
+
     Student (String studentSurname, String studentName, String studentPatronymic, byte mark) {
         this.studentName = studentName;
         this.studentSurname = studentSurname;
         this.studentPatronymic = studentPatronymic;
         this.mark = mark;
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Student student = new Student();
+        student.setStudents_list();
+        student.sortByMark();
+        student.setBadStudents();
+        student.setLuckyStudents();
+        List<Student> show = student.getUnluckyStudents();
+        System.out.println("Список студентов, не получивших сертификат: ");
+        for (Student s : show) {
+            System.out.println(s);
+        }
     }
 
     public String getStudentName() {
@@ -113,7 +128,7 @@ public class Student {
         return this.students_list;
     }
 
-    private void sortByMark(List<Student> students_list) {
+    private void sortByMark() {
         students_list.sort(new Comparator<Student>() {
             @Override
             public int compare(Student s2, Student s1) {
@@ -143,7 +158,7 @@ public class Student {
         save.close();
     }
 
-    private List<Student> setAndGetLuckyStudents() {
+    private void setLuckyStudents() {
         int first = 0;
         int second = 0;
         int third = 0;
@@ -155,7 +170,25 @@ public class Student {
         lucky_students.add(filtered_students.get(first));
         lucky_students.add(filtered_students.get(second));
         lucky_students.add(filtered_students.get(third));
-        return lucky_students;
+    }
+
+    public List<Student> getUnluckyStudents() throws IOException, ClassNotFoundException {
+        ArrayList<Student> unlucky_list;
+        try (FileInputStream start = new FileInputStream("bad_students.txt")) {
+            ObjectInputStream load = new ObjectInputStream(start);
+            unlucky_list = (ArrayList<Student>) load.readObject();
+            for (Student s : lucky_students) {
+                unlucky_list.remove(s);
+            }
+            FileOutputStream stream = new FileOutputStream("bad_students.txt");
+            ObjectOutputStream save = new ObjectOutputStream(stream);
+            save.writeObject(unlucky_list);
+            save.close();
+            return unlucky_list;
+        } catch (FileNotFoundException e) {
+            setBadStudents();
+            return getUnluckyStudents();
+        }
     }
 
     @Override
@@ -166,5 +199,20 @@ public class Student {
                 ", studentPatronymic='" + studentPatronymic + '\'' +
                 ", mark=" + mark +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(students_list, student.students_list) &&
+                Objects.equals(filtered_students, student.filtered_students) &&
+                Objects.equals(lucky_students, student.lucky_students);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(students_list, filtered_students, lucky_students);
     }
 }
