@@ -2,13 +2,14 @@ package students;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Student {
+public class Student implements Serializable{
     private String studentName;
     private String studentSurname;
     private String studentPatronymic;
@@ -45,12 +46,12 @@ public class Student {
         return studentName;
     }
 
-    public void setStudentName() {
+    public void setStudentName() throws IOException {
         List<String> names = new ArrayList<>();
-        Path path = Paths.get("students/names.txt");
+        Path path = Paths.get("src/students/names.txt");
         try (Stream<String> streamNames = Files.lines(path)){
             names = streamNames.collect(Collectors.toList());
-        } catch (IOException e) {
+        } catch (NoSuchFileException e) {
             e.printStackTrace();
         }
         this.studentName = names.get(rnd.nextInt(names.size()));
@@ -60,12 +61,12 @@ public class Student {
         return studentSurname;
     }
 
-    public void setStudentSurname() {
+    public void setStudentSurname() throws IOException {
         List<String> surnames = new ArrayList<>();
-        Path path = Paths.get("students/surnames.txt");
+        Path path = Paths.get("src/students/surnames.txt");
         try (Stream<String> streamSurnames = Files.lines(path)){
             surnames = streamSurnames.collect(Collectors.toList());
-        } catch (IOException e) {
+        } catch (NoSuchFileException e) {
             e.printStackTrace();
         }
         this.studentSurname = surnames.get(rnd.nextInt(surnames.size()));
@@ -75,12 +76,12 @@ public class Student {
         return studentPatronymic;
     }
 
-    public void setStudentPatronymic() {
+    public void setStudentPatronymic() throws IOException {
         List<String> patronymics = new ArrayList<>();
-        Path path = Paths.get("students/patronymics.txt");
+        Path path = Paths.get("src/students/patronymics.txt");
         try (Stream<String> streamPatronymics = Files.lines(path)){
             patronymics = streamPatronymics.collect(Collectors.toList());
-        } catch (IOException e) {
+        } catch (NoSuchFileException e) {
             e.printStackTrace();
         }
         this.studentPatronymic = patronymics.get(rnd.nextInt(patronymics.size()));
@@ -94,7 +95,7 @@ public class Student {
         this.mark = (byte) rnd.nextInt(11);
     }
 
-    private void generateStudents_List() {
+    private void generateStudents_List() throws IOException {
         students_list.clear();
         for (int i = 0; i < 100; i++) {
             setStudentSurname();
@@ -215,4 +216,10 @@ public class Student {
     public int hashCode() {
         return Objects.hash(students_list, filtered_students, lucky_students);
     }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {}
+
+    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {}
+
+    private void readObjectNoData() throws ObjectStreamException {}
 }
