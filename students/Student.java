@@ -1,15 +1,10 @@
 package students;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,15 +14,17 @@ public class Student {
     private String studentPatronymic;
     private byte mark;
 
+    private List<Student> students_list = new ArrayList<>();
+    private List<Student> filtered_students = new ArrayList<>();
+    private List<Student> lucky_students = new ArrayList<>();
+    private Random rnd = new Random();
+
     Student (String studentSurname, String studentName, String studentPatronymic, byte mark) {
         this.studentName = studentName;
         this.studentSurname = studentSurname;
         this.studentPatronymic = studentPatronymic;
         this.mark = mark;
     }
-
-    private List<Student> students_list = new ArrayList<>();
-    private Random rnd = new Random();
 
     public String getStudentName() {
         return studentName;
@@ -83,12 +80,12 @@ public class Student {
     }
 
     private void generateStudents_List() {
+        students_list.clear();
         for (int i = 0; i < 100; i++) {
             setStudentSurname();
             setStudentName();
             setStudentPatronymic();
             setMark();
-            students_list.clear();
             students_list.add(new Student(getStudentSurname(), getStudentName(), getStudentPatronymic(), getMark()));
         }
     }
@@ -98,15 +95,76 @@ public class Student {
         students_list.addAll(students);
     }
 
-    public List<Student> getStudents_list() throws IOException, ClassNotFoundException {
+    public void setStudents_list() throws IOException, ClassNotFoundException {
         try (FileInputStream start = new FileInputStream("students.txt")) {
             ObjectInputStream load = new ObjectInputStream(start);
             List<Student> students = (ArrayList<Student>) load.readObject();
             setStudents_List(students);
-            return students_list;
         } catch (FileNotFoundException e) {
             generateStudents_List();
-            return students_list;
+            FileOutputStream stream = new FileOutputStream("students.txt");
+            ObjectOutputStream save = new ObjectOutputStream(stream);
+            save.writeObject(students_list);
+            save.close();
         }
+    }
+
+    public List<Student> getStudents_list() {
+        return this.students_list;
+    }
+
+    private void sortByMark(List<Student> students_list) {
+        students_list.sort(new Comparator<Student>() {
+            @Override
+            public int compare(Student s2, Student s1) {
+                if (s1.getMark() > s2.getMark()) {
+                    return 1;
+                } else if (s2.getMark() > s1.getMark()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
+
+    public List<Student> getBadStudents() {
+        return this.filtered_students;
+    }
+
+    public void setBadStudents() throws IOException {
+        filtered_students.clear();
+        filtered_students = students_list.stream()
+                .filter(i -> i.getMark() < 7)
+                .collect(Collectors.toList());
+        FileOutputStream stream = new FileOutputStream("bad_students.txt");
+        ObjectOutputStream save = new ObjectOutputStream(stream);
+        save.writeObject(filtered_students);
+        save.close();
+    }
+
+    private List<Student> setAndGetLuckyStudents() {
+        int first = 0;
+        int second = 0;
+        int third = 0;
+        while ((first == second) || (second == third) || (first == third)) {
+            first = rnd.nextInt(filtered_students.size());
+            second = rnd.nextInt(filtered_students.size());
+            third = rnd.nextInt(filtered_students.size());
+        }
+        lucky_students.add(filtered_students.get(first));
+        lucky_students.add(filtered_students.get(second));
+        lucky_students.add(filtered_students.get(third));
+        return lucky_students;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentSurname='" + studentSurname + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", studentPatronymic='" + studentPatronymic + '\'' +
+                ", mark=" + mark +
+                '}';
     }
 }
